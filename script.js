@@ -2,9 +2,11 @@ const iconsPerPage = 20;
 let currentPage = 0;
 let allIcons = [];
 let currentFolder = '';
+let iconData = {};
 
-document.addEventListener('DOMContentLoaded', () => {
-    const categories = ['scarlab-duotone-line-vectors', 'scarlab-oval-line-icons', 'scarlab-solid-oval-interface-icons', 'solar-outline-icons', 'solar-bold-duotone-icons', 'solar-bold-icons', 'solar-broken-line-icons', 'solar-linear-icons', 'solar-line-duotone-icons'];
+document.addEventListener('DOMContentLoaded', async () => {
+    await fetchIconsData();
+    const categories = Object.keys(iconData);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
     showIcons(randomCategory);
 
@@ -15,10 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-async function showIcons(folderName) {
+async function fetchIconsData() {
+    const response = await fetch('icons/icons.json');
+    iconData = await response.json();
+}
+
+function showIcons(folderName) {
     currentFolder = folderName;
     currentPage = 0;
-    allIcons = [];
+    allIcons = iconData[folderName] || [];
 
     const iconGallery = document.getElementById('icon-gallery');
     const loader = document.getElementById('loader');
@@ -30,28 +37,14 @@ async function showIcons(folderName) {
     iconGallery.style.display = 'none';
     iconGallery.innerHTML = ''; // Clear previous icons
 
-    try {
-        const response = await fetch(`icons/${folderName}`);
-        const text = await response.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        allIcons = Array.from(doc.querySelectorAll('a'))
-            .map(a => a.href)
-            .filter(href => href.endsWith('.svg'));
-
-        if (allIcons.length > 0) {
-            iconGallery.style.display = 'flex';
-        }
-
-        // Load all icons initially
-        while (currentPage * iconsPerPage < allIcons.length) {
-            loadMoreIcons();
-        }
-    } catch (error) {
-        console.error('Error fetching icons:', error);
-    } finally {
-        loader.style.display = 'none';
+    if (allIcons.length > 0) {
+        iconGallery.style.display = 'flex';
     }
+
+    // Load all icons initially
+    loadMoreIcons();
+
+    loader.style.display = 'none';
 }
 
 function loadMoreIcons() {
@@ -61,12 +54,12 @@ function loadMoreIcons() {
     const iconsToLoad = allIcons.slice(startIndex, endIndex);
 
     iconsToLoad.forEach(icon => {
-        const iconName = icon.split('/').pop().replace('.svg', '');
+        const iconName = icon.replace('.svg', '');
         const iconDiv = document.createElement('div');
         iconDiv.classList.add('icon');
         
         const img = document.createElement('img');
-        img.src = icon;
+        img.src = `icons/${currentFolder}/${icon}`;
         iconDiv.appendChild(img);
         
         const nameDiv = document.createElement('div');
@@ -80,13 +73,13 @@ function loadMoreIcons() {
         const downloadButton = document.createElement('button');
         downloadButton.classList.add('icon-button', 'download');
         downloadButton.textContent = 'Download';
-        downloadButton.onclick = () => downloadIcon(icon);
+        downloadButton.onclick = () => downloadIcon(img.src);
         buttonsDiv.appendChild(downloadButton);
         
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
         copyButton.textContent = 'Copy';
-        copyButton.onclick = () => copyIcon(icon);
+        copyButton.onclick = () => copyIcon(img.src);
         buttonsDiv.appendChild(copyButton);
         
         iconDiv.appendChild(buttonsDiv);
