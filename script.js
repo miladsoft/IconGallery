@@ -31,7 +31,7 @@ async function showIcons(folderName) {
     iconGallery.innerHTML = ''; // Clear previous icons
 
     try {
-        const response = await fetch(`icons/${folderName}`);
+        const response = await fetch(`IconGallery/icons/${folderName}`);
         const text = await response.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
