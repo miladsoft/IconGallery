@@ -1,0 +1,156 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(214,225,242,1) 100%);
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.search-container {
+    margin: 20px 0;
+}
+
+#search-box {
+    width: 50%;
+    padding: 15px;
+    font-size: 18px;
+    border: 2px solid #007BFF;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#search-box:focus {
+    border-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.category {
+    margin: 10px;
+    padding: 15px 25px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.category.active {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.category:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+#icon-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.icon {
+    margin: 15px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.icon:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 10px rgba(0,0,0,0.15);
+}
+
+.icon img {
+    width: 100px;
+    height: 100px;
+    transition: transform 0.3s;
+}
+
+.icon img:hover {
+    transform: scale(1.1);
+}
+
+.icon-name {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.icon-buttons {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-button {
+    margin: 0 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.icon-button.download {
+    background-color: #28a745;
+    color: white;
+}
+
+.icon-button.download:hover {
+    background-color: #218838;
+}
+
+.icon-button.copy {
+    background-color: #ffc107;
+    color: black;
+}
+
+.icon-button.copy:hover {
+    background-color: #e0a800;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Icon Gallery</h1>
+    <div class="search-container">
+        <input type="text" id="search-box" oninput="searchIcons()" placeholder="Search icons...">
+    </div>
+    <div class="categories">
+        <button class="category" id="scarlab-duotone-line-vectors" onclick="showIcons('scarlab-duotone-line-vectors')">Scarlab Duotone Line Vectors</button>
+        <button class="category" id="scarlab-oval-line-icons" onclick="showIcons('scarlab-oval-line-icons')">Scarlab Oval Line Icons</button>
+        <button class="category" id="scarlab-solid-oval-interface-icons" onclick="showIcons('scarlab-solid-oval-interface-icons')">Scarlab Solid Oval Interface Icons</button>
+        <button class="category" id="solar-outline-icons" onclick="showIcons('solar-outline-icons')">Solar Outline Icons</button>
+        <button class="category" id="solar-bold-duotone-icons" onclick="showIcons('solar-bold-duotone-icons')">Solar Bold Duotone Icons</button>
+        <button class="category" id="solar-bold-icons" onclick="showIcons('solar-bold-icons')">Solar Bold Icons</button>
+        <button class="category" id="solar-broken-line-icons" onclick="showIcons('solar-broken-line-icons')">Solar Broken Line Icons</button>
+        <button class="category" id="solar-linear-icons" onclick="showIcons('solar-linear-icons')">Solar Linear Icons</button>
+        <button class="category" id="solar-line-duotone-icons" onclick="showIcons('solar-line-duotone-icons')">Solar Line Duotone Icons</button>
+    </div>
+    <div id="loader" class="loader" style="display: none;"></div>
+    <div id="icon-gallery" style="display: none;"></div>
+    <script src="script.js"></script>
+</body>
+</html>
