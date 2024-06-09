@@ -21,38 +21,12 @@
             d="M15 11.5C15 13.433 13.433 15 11.5 15C9.567 15 8 13.433 8 11.5C8 9.567 9.567 8 11.5 8C13.433 8 15 9.567 15 11.5Z"
             stroke="#323232" stroke-width="2" />
     </svg>
+    
     <div class="search-container">
         <input type="text" id="search-box" oninput="searchIcons()" placeholder="Search icons..." />
-    </div>
-    <div class="categories">
-        <button class="category" id="scarlab-duotone-line-vectors" onclick="showIcons('scarlab-duotone-line-vectors')">
-            Scarlab Duotone Line Vectors
-        </button>
-        <button class="category" id="scarlab-oval-line-icons" onclick="showIcons('scarlab-oval-line-icons')">
-            Scarlab Oval Line Icons
-        </button>
-        <button class="category" id="scarlab-solid-oval-interface-icons"
-            onclick="showIcons('scarlab-solid-oval-interface-icons')">
-            Scarlab Solid Oval Interface Icons
-        </button>
-        <button class="category" id="solar-outline-icons" onclick="showIcons('solar-outline-icons')">
-            Solar Outline Icons
-        </button>
-        <button class="category" id="solar-bold-duotone-icons" onclick="showIcons('solar-bold-duotone-icons')">
-            Solar Bold Duotone Icons
-        </button>
-        <button class="category" id="solar-bold-icons" onclick="showIcons('solar-bold-icons')">
-            Solar Bold Icons
-        </button>
-        <button class="category" id="solar-broken-line-icons" onclick="showIcons('solar-broken-line-icons')">
-            Solar Broken Line Icons
-        </button>
-        <button class="category" id="solar-linear-icons" onclick="showIcons('solar-linear-icons')">
-            Solar Linear Icons
-        </button>
-        <button class="category" id="solar-line-duotone-icons" onclick="showIcons('solar-line-duotone-icons')">
-            Solar Line Duotone Icons
-        </button>
+        <select id="category-select" onchange="showIcons(this.value)">
+            <!-- Options will be dynamically added here -->
+        </select>
     </div>
     <div id="loader" class="loader" style="display: none"></div>
     <div id="icon-gallery" style="display: none"></div>

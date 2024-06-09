@@ -22,6 +22,10 @@ h1 {
     position: sticky;
     top: 10px;
     z-index: 100000;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap; /* Allow wrapping for better layout on small screens */
 }
 
 #search-box {
@@ -35,41 +39,21 @@ h1 {
     transition: all 0.3s ease;
 }
 
-#search-box:focus {
+#category-select {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #c7c7c7;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+}
+
+#search-box:focus,
+#category-select:focus {
     border-color: #828282;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-.category {
-    margin: 5px;
-    padding: 10px 15px;
-    background-color: #cbcbcb;
-    color: rgb(0, 0, 0);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    font-size: 14px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.category.active {
-    background-color: #9a9a9a;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.category:hover {
-    background-color: #c2c2c2;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 #icon-gallery {
@@ -147,11 +131,7 @@ h1 {
 }
 
 @media (max-width: 800px) {
-    #search-box {
-        width: 80%;
-    }
-
-    .category {
+    #search-box , #category-select {
         width: 80%;
     }
 
@@ -163,6 +143,12 @@ h1 {
     .icon img {
         width: 50px;
         height: 50px;
+    }
+
+    .search-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 }
 

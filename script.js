@@ -7,6 +7,7 @@ let iconData = {};
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchIconsData();
     const categories = Object.keys(iconData);
+    populateCategorySelect(categories);
     let selectedCategory = getCategoryFromURL() || categories[Math.floor(Math.random() * categories.length)];
     showIcons(selectedCategory);
 
@@ -22,6 +23,11 @@ async function fetchIconsData() {
     iconData = await response.json();
 }
 
+function populateCategorySelect(categories) {
+    const categorySelect = document.getElementById('category-select');
+    categorySelect.innerHTML = categories.map(category => `<option value="${category}">${category}</option>`).join('');
+}
+
 function showIcons(folderName) {
     currentFolder = folderName;
     currentPage = 0;
@@ -32,7 +38,7 @@ function showIcons(folderName) {
     const loader = document.getElementById('loader');
     const activeCategory = document.querySelector('.category.active');
     if (activeCategory) activeCategory.classList.remove('active');
-    document.getElementById(folderName).classList.add('active');
+    document.getElementById('category-select').value = folderName;
 
     loader.style.display = 'block';
     iconGallery.style.display = 'none';
