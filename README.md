@@ -3,6 +3,8 @@
 
 A web-based icon gallery that allows users to browse, search, and download icons. Icons are dynamically loaded based on categories and can be filtered via a search box.
 
+![icons](https://github.com/miladsoft/IconGallery/assets/6504337/f872519b-014d-4b26-8bd5-460845d38327)
+
 ## Features
 
 - **Browse Icons**: View icons by category.
