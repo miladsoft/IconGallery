@@ -1,6 +1,7 @@
-html{
+html {
     height: 100vh;
 }
+
 body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
@@ -25,81 +26,81 @@ h1 {
 
 #search-box {
     width: 50%;
-    padding: 15px;
-    font-size: 18px;
+    padding: 10px;
+    font-size: 16px;
     border: 2px solid #c7c7c7;
-    border-radius: 30px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     outline: none;
     transition: all 0.3s ease;
 }
 
 #search-box:focus {
     border-color: #828282;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .categories {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 .category {
-    margin: 10px;
-    padding: 15px 25px;
+    margin: 5px;
+    padding: 10px 15px;
     background-color: #cbcbcb;
     color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
-    font-size: 16px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    font-size: 14px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .category.active {
     background-color: #9a9a9a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .category:hover {
     background-color: #c2c2c2;
     transform: translateY(-2px);
-    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 #icon-gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 20px;
+    padding: 10px;
     background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .icon {
-    margin: 15px;
-    padding: 20px;
+    margin: 10px;
+    padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .icon:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 10px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
 }
 
 .icon img {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     transition: transform 0.3s;
 }
 
@@ -108,23 +109,24 @@ h1 {
 }
 
 .icon-name {
-    margin-top: 10px;
+    margin-top: 5px;
     font-weight: bold;
     color: #333;
+    font-size: 12px;
 }
 
 .icon-buttons {
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     justify-content: center;
 }
 
 .icon-button {
-    margin: 0 5px;
-    padding: 10px 20px;
-    font-size: 14px;
+    margin: 0 3px;
+    padding: 5px 10px;
+    font-size: 12px;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -158,8 +160,49 @@ h1 {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 800px) {
+    #search-box {
+        width: 80%;
+    }
+
+    .category {
+        width: 80%;
+    }
+
+    .icon {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .icon img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .icon-name {
+        font-size: 10px;
+    }
+
+    .icon-button {
+        padding: 3px 5px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .icon {
+        width: calc(33.333% - 10px); /* Three icons per row */
+        box-sizing: border-box;
+    }
 }
 
 ::-webkit-scrollbar {

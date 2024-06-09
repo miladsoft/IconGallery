@@ -1,4 +1,4 @@
-const iconsPerPage = 20;
+const iconsPerPage = 540;
 let currentPage = 0;
 let allIcons = [];
 let currentFolder = '';
@@ -104,22 +104,19 @@ async function copyIcon(url, button) {
         const svgDoc = parser.parseFromString(text, 'image/svg+xml');
         const svgElement = svgDoc.getElementsByTagName('svg')[0];
 
-        // Remove scripts
         const scripts = svgElement.getElementsByTagName('script');
         for (let i = scripts.length - 1; i >= 0; i--) {
             scripts[i].parentNode.removeChild(scripts[i]);
         }
 
-        // Remove comments
         removeComments(svgElement);
 
         const serializer = new XMLSerializer();
         const cleanSVG = serializer.serializeToString(svgElement);
 
-        // Copy the cleaned SVG to the clipboard
         await navigator.clipboard.writeText(cleanSVG);
 
-        // Change button text to "Copied" and revert back after 2 seconds
+        // Change button text to "Copied" and revert after 2 seconds
         const originalText = button.textContent;
         button.textContent = 'Copied';
         setTimeout(() => {
