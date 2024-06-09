@@ -1,4 +1,4 @@
-const iconsPerPage = 540;
+const iconsPerPage = 100;
 let currentPage = 0;
 let allIcons = [];
 let currentFolder = '';
@@ -7,8 +7,8 @@ let iconData = {};
 document.addEventListener('DOMContentLoaded', async () => {
     await fetchIconsData();
     const categories = Object.keys(iconData);
-    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    showIcons(randomCategory);
+    let selectedCategory = getCategoryFromURL() || categories[Math.floor(Math.random() * categories.length)];
+    showIcons(selectedCategory);
 
     window.addEventListener('scroll', () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
@@ -26,6 +26,7 @@ function showIcons(folderName) {
     currentFolder = folderName;
     currentPage = 0;
     allIcons = iconData[folderName] || [];
+    updateURLWithCategory(folderName);
 
     const iconGallery = document.getElementById('icon-gallery');
     const loader = document.getElementById('loader');
@@ -62,23 +63,18 @@ function loadMoreIcons() {
         img.src = `icons/${currentFolder}/${icon}`;
         iconDiv.appendChild(img);
         
-        const nameDiv = document.createElement('div');
-        nameDiv.classList.add('icon-name');
-        nameDiv.textContent = iconName;
-        iconDiv.appendChild(nameDiv);
-        
         const buttonsDiv = document.createElement('div');
         buttonsDiv.classList.add('icon-buttons');
         
         const downloadButton = document.createElement('button');
         downloadButton.classList.add('icon-button', 'download');
-        downloadButton.textContent = 'Download';
+        downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M12 16L12 8" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13L11.913 15.913V15.913C11.961 15.961 12.039 15.961 12.087 15.913V15.913L15 13" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15L3 16L3 19C3 20.1046 3.89543 21 5 21L19 21C20.1046 21 21 20.1046 21 19L21 16L21 15" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         downloadButton.onclick = () => downloadIcon(img.src);
         buttonsDiv.appendChild(downloadButton);
         
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
-        copyButton.textContent = 'Copy';
+        copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#1C274C" stroke-width="1.5"/><path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#1C274C" stroke-width="1.5"/></svg>';
         copyButton.onclick = () => copyIcon(img.src, copyButton);
         buttonsDiv.appendChild(copyButton);
         
@@ -117,10 +113,10 @@ async function copyIcon(url, button) {
         await navigator.clipboard.writeText(cleanSVG);
 
         // Change button text to "Copied" and revert after 2 seconds
-        const originalText = button.textContent;
-        button.textContent = 'Copied';
+        const originalText = button.innerHTML;
+        button.innerHTML = 'Copied';
         setTimeout(() => {
-            button.textContent = originalText;
+            button.innerHTML = originalText;
         }, 2000);
     } catch (error) {
         console.error('Error copying icon:', error);
@@ -155,27 +151,33 @@ function searchIcons() {
         img.src = `icons/${currentFolder}/${icon}`;
         iconDiv.appendChild(img);
         
-        const nameDiv = document.createElement('div');
-        nameDiv.classList.add('icon-name');
-        nameDiv.textContent = iconName;
-        iconDiv.appendChild(nameDiv);
-        
         const buttonsDiv = document.createElement('div');
         buttonsDiv.classList.add('icon-buttons');
         
         const downloadButton = document.createElement('button');
         downloadButton.classList.add('icon-button', 'download');
-        downloadButton.textContent = 'Download';
+        downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M12 16L12 8" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13L11.913 15.913V15.913C11.961 15.961 12.039 15.961 12.087 15.913V15.913L15 13" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15L3 16L3 19C3 20.1046 3.89543 21 5 21L19 21C20.1046 21 21 20.1046 21 19L21 16L21 15" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         downloadButton.onclick = () => downloadIcon(img.src);
         buttonsDiv.appendChild(downloadButton);
         
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
-        copyButton.textContent = 'Copy';
+        copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#1C274C" stroke-width="1.5"/><path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#1C274C" stroke-width="1.5"/></svg>';
         copyButton.onclick = () => copyIcon(img.src, copyButton);
         buttonsDiv.appendChild(copyButton);
         
         iconDiv.appendChild(buttonsDiv);
         iconGallery.appendChild(iconDiv);
     });
+}
+
+function updateURLWithCategory(category) {
+    const url = new URL(window.location);
+    url.searchParams.set('category', category);
+    window.history.pushState({}, '', url);
+}
+
+function getCategoryFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('category');
 }
