@@ -110,13 +110,41 @@ async function copyIcon(url) {
 
 function searchIcons() {
     const query = document.getElementById('search-box').value.toLowerCase();
-    const icons = document.querySelectorAll('.icon');
-    icons.forEach(icon => {
-        const iconName = icon.querySelector('.icon-name').textContent.toLowerCase();
-        if (iconName.includes(query)) {
-            icon.style.display = 'block';
-        } else {
-            icon.style.display = 'none';
-        }
+    const iconGallery = document.getElementById('icon-gallery');
+    iconGallery.innerHTML = ''; // Clear previous icons
+
+    const filteredIcons = allIcons.filter(icon => icon.toLowerCase().includes(query));
+
+    filteredIcons.forEach(icon => {
+        const iconName = icon.replace('.svg', '');
+        const iconDiv = document.createElement('div');
+        iconDiv.classList.add('icon');
+        
+        const img = document.createElement('img');
+        img.src = `icons/${currentFolder}/${icon}`;
+        iconDiv.appendChild(img);
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.classList.add('icon-name');
+        nameDiv.textContent = iconName;
+        iconDiv.appendChild(nameDiv);
+        
+        const buttonsDiv = document.createElement('div');
+        buttonsDiv.classList.add('icon-buttons');
+        
+        const downloadButton = document.createElement('button');
+        downloadButton.classList.add('icon-button', 'download');
+        downloadButton.textContent = 'Download';
+        downloadButton.onclick = () => downloadIcon(img.src);
+        buttonsDiv.appendChild(downloadButton);
+        
+        const copyButton = document.createElement('button');
+        copyButton.classList.add('icon-button', 'copy');
+        copyButton.textContent = 'Copy';
+        copyButton.onclick = () => copyIcon(img.src);
+        buttonsDiv.appendChild(copyButton);
+        
+        iconDiv.appendChild(buttonsDiv);
+        iconGallery.appendChild(iconDiv);
     });
 }

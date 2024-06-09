@@ -1,7 +1,11 @@
+html{
+    height: 100vh;
+}
 body {
     font-family: 'Roboto', sans-serif;
     text-align: center;
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(214,225,242,1) 100%);
+    background: #ddd;
+    background-size: cover;
     margin: 0;
     padding: 20px;
 }
@@ -14,13 +18,16 @@ h1 {
 
 .search-container {
     margin: 20px 0;
+    position: sticky;
+    top: 10px;
+    z-index: 100000;
 }
 
 #search-box {
     width: 50%;
     padding: 15px;
     font-size: 18px;
-    border: 2px solid #007BFF;
+    border: 2px solid #c7c7c7;
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     outline: none;
@@ -28,7 +35,7 @@ h1 {
 }
 
 #search-box:focus {
-    border-color: #0056b3;
+    border-color: #828282;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
@@ -42,10 +49,10 @@ h1 {
 .category {
     margin: 10px;
     padding: 15px 25px;
-    background-color: #007BFF;
-    color: white;
+    background-color: #cbcbcb;
+    color: rgb(0, 0, 0);
     border: none;
-    border-radius: 25px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
     font-size: 16px;
@@ -53,16 +60,45 @@ h1 {
 }
 
 .category.active {
-    background-color: #0056b3;
+    background-color: #9a9a9a;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 
 .category:hover {
-    background-color: #0056b3;
+    background-color: #c2c2c2;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
+
+.lahzeh__download-box {
+    align-items: center;
+    -moz-column-gap: .5rem;
+    column-gap: .5rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    transition-duration: .15s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1)
+}
+
+.lahzeh__download-box:hover {
+    --tw-translate-y: -0.5rem;
+    transform: translate(var(--tw-translate-x),-.5rem) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.lahzeh__download-box {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: hsla(0,0%,100%,.15);
+    border: 1px solid hsla(0,0%,100%,.5);
+    border-radius: 12px;
+    padding: 12px 24px
+}
+
+
 
 #icon-gallery {
     display: flex;
