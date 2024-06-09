@@ -71,35 +71,6 @@ h1 {
     box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
 
-.lahzeh__download-box {
-    align-items: center;
-    -moz-column-gap: .5rem;
-    column-gap: .5rem;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    transition-duration: .15s;
-    transition-property: all;
-    transition-timing-function: cubic-bezier(.4,0,.2,1)
-}
-
-.lahzeh__download-box:hover {
-    --tw-translate-y: -0.5rem;
-    transform: translate(var(--tw-translate-x),-.5rem) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
-}
-
-.lahzeh__download-box {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background: hsla(0,0%,100%,.15);
-    border: 1px solid hsla(0,0%,100%,.5);
-    border-radius: 12px;
-    padding: 12px 24px
-}
-
-
-
 #icon-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -189,4 +160,32 @@ h1 {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #c7c7c7;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #828282;
+    border-radius: 10px;
+}
+
+.horizontal_scroll::-webkit-scrollbar {
+    height: 6px;
+}
+
+.horizontal_scroll::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #c7c7c7;
+}
+
+.horizontal_scroll::-webkit-scrollbar-thumb {
+    background-color: #828282;
+    border-radius: 10px;
 }
