@@ -79,7 +79,7 @@ function loadMoreIcons() {
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
         copyButton.textContent = 'Copy';
-        copyButton.onclick = () => copyIcon(img.src);
+        copyButton.onclick = () => copyIcon(img.src, copyButton);
         buttonsDiv.appendChild(copyButton);
         
         iconDiv.appendChild(buttonsDiv);
@@ -96,15 +96,49 @@ function downloadIcon(url) {
     link.click();
 }
 
-async function copyIcon(url) {
+async function copyIcon(url, button) {
     try {
         const response = await fetch(url);
         const text = await response.text();
-        await navigator.clipboard.writeText(text);
-        alert('SVG content copied to clipboard');
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(text, 'image/svg+xml');
+        const svgElement = svgDoc.getElementsByTagName('svg')[0];
+
+        // Remove scripts
+        const scripts = svgElement.getElementsByTagName('script');
+        for (let i = scripts.length - 1; i >= 0; i--) {
+            scripts[i].parentNode.removeChild(scripts[i]);
+        }
+
+        // Remove comments
+        removeComments(svgElement);
+
+        const serializer = new XMLSerializer();
+        const cleanSVG = serializer.serializeToString(svgElement);
+
+        // Copy the cleaned SVG to the clipboard
+        await navigator.clipboard.writeText(cleanSVG);
+
+        // Change button text to "Copied" and revert back after 2 seconds
+        const originalText = button.textContent;
+        button.textContent = 'Copied';
+        setTimeout(() => {
+            button.textContent = originalText;
+        }, 2000);
     } catch (error) {
         console.error('Error copying icon:', error);
-        alert('Failed to copy SVG content');
+    }
+}
+
+function removeComments(node) {
+    for (let i = 0; i < node.childNodes.length; i++) {
+        const child = node.childNodes[i];
+        if (child.nodeType === 8) {
+            node.removeChild(child);
+            i--;
+        } else if (child.nodeType === 1) {
+            removeComments(child);
+        }
     }
 }
 
@@ -141,7 +175,7 @@ function searchIcons() {
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
         copyButton.textContent = 'Copy';
-        copyButton.onclick = () => copyIcon(img.src);
+        copyButton.onclick = () => copyIcon(img.src, copyButton);
         buttonsDiv.appendChild(copyButton);
         
         iconDiv.appendChild(buttonsDiv);
