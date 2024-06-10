@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     copyButton.onclick = () => {
         const iconName = document.getElementById('modal-icon-name').textContent;
         navigator.clipboard.writeText(iconName).then(() => {
-            
+            console.log('Icon name copied to clipboard!');
         });
     };
 
