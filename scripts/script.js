@@ -64,26 +64,28 @@ function loadMoreIcons() {
         const iconName = icon.replace('.svg', '');
         const iconDiv = document.createElement('div');
         iconDiv.classList.add('icon');
-        
+
         const img = document.createElement('img');
         img.src = `icons/${currentFolder}/${icon}`;
+        img.alt = iconName;
+        img.addEventListener('click', () => openModal(img.src, iconName));
         iconDiv.appendChild(img);
-        
+
         const buttonsDiv = document.createElement('div');
         buttonsDiv.classList.add('icon-buttons');
-        
+
         const downloadButton = document.createElement('button');
         downloadButton.classList.add('icon-button', 'download');
         downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M12 16L12 8" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13L11.913 15.913V15.913C11.961 15.961 12.039 15.961 12.087 15.913V15.913L15 13" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15L3 16L3 19C3 20.1046 3.89543 21 5 21L19 21C20.1046 21 21 20.1046 21 19L21 16L21 15" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         downloadButton.onclick = () => downloadIcon(img.src);
         buttonsDiv.appendChild(downloadButton);
-        
+
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
         copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#1C274C" stroke-width="1.5"/><path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#1C274C" stroke-width="1.5"/></svg>';
         copyButton.onclick = () => copyIcon(img.src, copyButton);
         buttonsDiv.appendChild(copyButton);
-        
+
         iconDiv.appendChild(buttonsDiv);
         iconGallery.appendChild(iconDiv);
     });
@@ -152,26 +154,28 @@ function searchIcons() {
         const iconName = icon.replace('.svg', '');
         const iconDiv = document.createElement('div');
         iconDiv.classList.add('icon');
-        
+
         const img = document.createElement('img');
         img.src = `icons/${currentFolder}/${icon}`;
+        img.alt = iconName;
+        img.addEventListener('click', () => openModal(img.src, iconName));
         iconDiv.appendChild(img);
-        
+
         const buttonsDiv = document.createElement('div');
         buttonsDiv.classList.add('icon-buttons');
-        
+
         const downloadButton = document.createElement('button');
         downloadButton.classList.add('icon-button', 'download');
         downloadButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M12 16L12 8" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 13L11.913 15.913V15.913C11.961 15.961 12.039 15.961 12.087 15.913V15.913L15 13" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 15L3 16L3 19C3 20.1046 3.89543 21 5 21L19 21C20.1046 21 21 20.1046 21 19L21 16L21 15" stroke="#323232" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
         downloadButton.onclick = () => downloadIcon(img.src);
         buttonsDiv.appendChild(downloadButton);
-        
+
         const copyButton = document.createElement('button');
         copyButton.classList.add('icon-button', 'copy');
         copyButton.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24" fill="none"><path d="M6 11C6 8.17157 6 6.75736 6.87868 5.87868C7.75736 5 9.17157 5 12 5H15C17.8284 5 19.2426 5 20.1213 5.87868C21 6.75736 21 8.17157 21 11V16C21 18.8284 21 20.2426 20.1213 21.1213C19.2426 22 17.8284 22 15 22H12C9.17157 22 7.75736 22 6.87868 21.1213C6 20.2426 6 18.8284 6 16V11Z" stroke="#1C274C" stroke-width="1.5"/><path d="M6 19C4.34315 19 3 17.6569 3 16V10C3 6.22876 3 4.34315 4.17157 3.17157C5.34315 2 7.22876 2 11 2H15C16.6569 2 18 3.34315 18 5" stroke="#1C274C" stroke-width="1.5"/></svg>';
         copyButton.onclick = () => copyIcon(img.src, copyButton);
         buttonsDiv.appendChild(copyButton);
-        
+
         iconDiv.appendChild(buttonsDiv);
         iconGallery.appendChild(iconDiv);
     });
@@ -186,4 +190,42 @@ function updateURLWithCategory(category) {
 function getCategoryFromURL() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('category');
+}
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('icon-modal');
+    const closeButton = document.querySelector('.close-button');
+    const copyButton = document.getElementById('modal-copy-button');
+    const downloadButton = document.getElementById('modal-download-button');
+
+    closeButton.onclick = () => {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+
+    copyButton.onclick = () => {
+        const iconName = document.getElementById('modal-icon-name').textContent;
+        navigator.clipboard.writeText(iconName).then(() => {
+            
+        });
+    };
+
+    downloadButton.onclick = () => {
+        const iconUrl = document.getElementById('modal-icon-container').querySelector('img').src;
+        downloadIcon(iconUrl);
+    };
+});
+
+function openModal(iconSrc, iconName) {
+    const modal = document.getElementById('icon-modal');
+    const modalIconContainer = document.getElementById('modal-icon-container');
+    const modalIconName = document.getElementById('modal-icon-name');
+
+    modalIconContainer.innerHTML = `<img src="${iconSrc}" alt="${iconName}" />`;
+    modalIconName.textContent = iconName;
+    modal.style.display = 'block';
 }
